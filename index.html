@@ -1,0 +1,201 @@
+<head>
+  <meta charset="UTF-8">
+  <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <style>
+  
+    body {
+      background-color:#252525;
+      Color:white;
+      Width:1200px;
+      Height: auto;
+    }
+    
+    .chatting {
+      width:1200px;
+      height:2100px;
+      overflow: auto;
+    }
+    .area {
+      margin-top:70px;
+      width:1200px;
+    }
+    
+    .bubble {
+      margin-top:20px;
+    }
+    
+    .profile {
+      width:1200px;
+      height:80px;
+    }
+    
+    .username {
+      font-size:70px;
+      font-weight: bold;
+      margin-top:-170px;
+      margin-left:200px;
+    }
+    .badgehigh {
+      padding:9px;
+      font-size:40px;
+      color:black;
+      white-space:nowrap;
+      width:200px;
+    }
+    
+    .staff {
+      Background-color:yellow;
+    }
+    
+    .avatar {
+      Margin-top:10px;
+      Width:170px;
+      Height:170px;
+      Border-radius:50%;
+    }
+    
+    .img {
+      width:1000px;
+      margin-left:100px;
+    }
+    .chat {
+      margin-top:20px;
+      min-height:120px;
+    }
+    
+    .chat .msg {
+      font-size:45px;
+      margin-left:175px;
+      padding:20px;
+      Width:800px;
+      display:inline;
+      white-space:pre-line;
+    }
+    
+    .rein {
+      width:1200px;
+      height:150px;
+    }
+    
+    .form {
+      background-color: gray;
+      width:1000px;
+      height:auto;
+      height:100px;
+      font-size:60px;
+      margin-top:25px;
+      color:white;
+    }
+    
+    .send {
+      font-size: 60px;
+      padding:20px 20px;
+      border-radius: 50%;
+      background-color: blue;
+    }
+    
+    </style>
+    </head>
+   
+   <script>
+   
+   
+   $(document).ready(function(){
+     const user = [
+     {name:"Kanaka Nakazawa",staff:true, avatar:"assets/1459185800_tumblr_o45aotuYRT1qet0cro2_540.gif",id:"0"},
+     {name:"Ananda Eka",staff:true, avatar:"assets/20211203_205458.jpg",id:"1"},
+     {name:"Cahyono Mulyadi",staff:false,avatar:"assets/20211114_224539.jpg",id:"2"}
+   ]
+   
+   var chat = [
+     {content:"Tq Cahya 😂",author:"0", attachment:[{name:'IMG02637682.jpg',src:"/assets/attachment/Screenshot_2021-11-25-19-59-53-78_8b8819d9bd7d19ebde7ab1ecd919506e.jpg"}]},
+     {content:"Oyi Kapten",author:"2", attachment:[]},
+     {content:"Kamu Dapet Dari Tiktok Ya?",author:"0", attachment:[]},
+     {content:"Yoi, Tau Darimane?",author:"2", attachment:[]},
+     {content:"Memberku Yang Kasih Tau :v",author:"0", attachment:[]},
+     {content:"Oh",author:"2", attachment:[]},
+     {content:'Test Masuk',author:"2", attachment:[]},
+     {content:"Test",author:"2", attachment:[]},
+     ]
+     
+   
+     // For Load Chat
+     ///chat.reverse()
+     
+     
+    function print() {
+    return chat.map(x => `
+     <div class="bubble">
+       <div class="profile">
+         <img class="avatar" src="${user.find(y => y.id === x.author).avatar}">
+       <div class="username">${user.find(y => y.id === x.author).name} ${userstaff(user.find(y => y.id === x.author).staff)}</div></div>
+       <div class="chat">
+         <div class="msg">${x.content}</div>
+         ${attachmenthandler(x.attachment)}
+       </div>
+     </div>`).join(' ')
+    }
+     
+    function userstaff(asem) {
+      if(asem === true) { 
+        return '<yup class="badgehigh staff"><i class="fas fa-wrench"> </i> Staff</yup>'
+      } else {
+        return ''
+      }
+    }
+    
+    function attachmenthandler(atc) {
+      if(atc.length > 0) {
+        return atc.map(x => `
+        <img class="img" src="${x.src}">
+        `)
+      } else {
+        return ''
+      }
+    }
+  
+  document.getElementById("area").innerHTML = print()
+  
+  function scrollDown() {
+  var d = $('.chatting');
+  d.scrollTop(d.prop("scrollHeight"));
+}
+  
+  scrollDown()
+
+  $("#send").on('touchstart touchend', function(e){
+    e.preventDefault();
+    var isi = $('#form').val();
+    $("#form").val('')
+    if(isi === '') return;
+    
+    chat.push({content:isi,author:"1", attachment:[]})
+    document.getElementById("area").innerHTML = print()
+    
+    scrollDown()
+  })
+  
+})
+   
+   
+   </script>
+   <body>
+     
+    <div class="chatting">
+     <div class="area" id="area">
+       
+       
+       
+     
+     </div>
+    </div>
+    
+     <div class="rein">
+       <input class="form" id="form"></input>
+       <i class="fas fa-space-shuttle send" id="send"></i>
+     </div>
+   </body>
